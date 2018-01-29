@@ -4,7 +4,7 @@
 class c_text_display
 {
     public:
-        c_text_display(Adafruit_SSD1306 & ref_display, uint8_t i2c_address, uint8_t font);
+        c_text_display(uint8_t i2c_address, uint8_t font);
 
         void init(void);
         void clear(void);
@@ -19,8 +19,7 @@ class c_text_display
         uint8_t address;
         uint8_t font_size;
 
-        // Adafruit_SSD1306 display;
-        Adafruit_SSD1306 & r_display;
+        Adafruit_SSD1306 r_display;
 };
 
 #endif //TEXT_DISPLAY_H
