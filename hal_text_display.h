@@ -1,13 +1,19 @@
 #ifndef TEXT_DISPLAY_H
 #define TEXT_DISPLAY_H
 
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+
 class c_text_display
 {
     public:
-        c_text_display(uint8_t i2c_address, uint8_t font);
+        c_text_display(uint8_t i2c_address);
 
         void init(void);
         void clear(void);
+        void dim(bool dim);
         void show(void);
         void print(char * p_str);
         void println(char * p_str);
