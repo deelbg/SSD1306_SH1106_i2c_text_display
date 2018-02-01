@@ -1,14 +1,22 @@
+#include <stdint.h>
+#include "hal_i2c.h"
 #include "hal_text_display.h"
 
-c_text_display g_display = c_text_display(0x3Cu);
+static const uint8_t OLED_ADDRESS = 0x3Cu;
+
+c_i2c g_i2c = c_i2c();
+c_text_display g_display = c_text_display(g_i2c, OLED_ADDRESS);
+
 
 
 void setup()
 {
-    g_display.init();
-    g_display.dim(true);
-}
+    g_i2c.init();
+    g_display.init(c_text_display::SSD1306_VCC_SWITCHCAP);
 
+    // g_display.init();
+    // g_display.dim(true);
+}
 
 
 void loop()
