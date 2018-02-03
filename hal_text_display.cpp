@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include "font_h6_v8.h"
 #include "hal_text_display.h"
 
 
@@ -94,17 +95,27 @@ void c_text_display::show(void)
 }
 
 
-void c_text_display::send_byte(uint8_t byte)
+void c_text_display::print_char(char ch)
 {
     send_data_start();
-    send_data_byte(byte);
+
+    for (uint8_t index = 0; index < 6u; index++)
+    {
+        send_data_byte(pgm_read_byte_near(&font_h6_v8[ch - (' ')][index]));
+    }
+    
     send_data_end();
 }
 
-
 void c_text_display::print(char * p_str)
 {
-    // display.print(p_str);
+    uint8_t index = 0u;
+
+    while ('\0' != p_str[index])
+    {
+        print_char(p_str[index]);
+        index++;
+    }
 }
 
 
@@ -124,6 +135,11 @@ void c_text_display::set_font_size(uint8_t size)
 void c_text_display::set_possition(uint8_t position_x, uint8_t position_y)
 {
     // display.setCursor((position_x * 12u), (position_y * 16u));
+    // ssd1306_send_command_start();
+    // ssd1306_send_byte(0xb0 + y);
+    // ssd1306_send_byte(((x & 0xf0) >> 4) | 0x10); // | 0x10
+    // ssd1306_send_byte((x & 0x0f) | 0x01); // | 0x01
+    // ssd1306_send_command_stop();
 }
 
 
