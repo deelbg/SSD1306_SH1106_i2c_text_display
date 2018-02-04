@@ -1,10 +1,12 @@
 #include <stdint.h>
+#include <arduino.h>
 #include "font_h6_v8.h"
 #include "hal_text_display.h"
 
 
 c_text_display::c_text_display(c_i2c & ref_i2c, uint8_t i2c_address) :
                                r_i2c(ref_i2c), address(i2c_address),
+                               current_x(0u), current_y(0u),
                                vcc_source(SSD1306_VCC_EXTERNAL)
 {
     
@@ -49,14 +51,8 @@ void c_text_display::init(vcc_source_t vcc)
 
 void c_text_display::clear(void)
 {
-    // set_possition(0u, 0u);
-    send_command(SSD1306_CMD_COLUMNADDR);
-    send_command(0u);
-    send_command(SSD1306_LCD_WIDTH - 1u);
-    send_command(SSD1306_CMD_PAGEADDR);
-    send_command(0u);
-    send_command((SSD1306_LCD_HEIGHT / 8u) - 1);
-
+    set_possition(0u, 0u);
+    
     for (uint8_t index = 0u; index < (SSD1306_LCD_BUFFER_SIZE / 16u); index++)
     {
         send_data_start();
@@ -78,34 +74,54 @@ void c_text_display::dim(bool dim)
 }
 
 
-void c_text_display::show(void)
-{
-    for (uint8_t index = 0u; index < (SSD1306_LCD_BUFFER_SIZE / 16u); index++)
-    {
-        send_data_start();
-
-        for (uint8_t index_2 = 0u; index_2 < 8u; index_2++)
-        {
-            send_data_byte(0xAAu);
-            send_data_byte(0x55u);
-        }
-
-        send_data_end();
-    }
-}
-
-
 void c_text_display::print_char(char ch)
 {
-    send_data_start();
+    uint8_t  byte = 0u;
+    uint8_t  bit  = 0u;
+    uint32_t tmp  = 0u;
 
-    for (uint8_t index = 0; index < 6u; index++)
+    for (uint8_t index = 0u; index < 6u; index++)
     {
-        send_data_byte(pgm_read_byte_near(&font_h6_v8[ch - (' ')][index]));
+        tmp = (uint32_t)0u;
+        byte = pgm_read_byte_near(&font_h6_v8[ch - (' ')][index]);
+
+        // Multiply dots for bigger fonts.
+        for (uint8_t bit_number = 0; bit_number < 8u; bit_number++)
+        {
+            bit = (byte & (0x01u << bit_number)) >> bit_number;
+
+            if (0u == font_size)
+            {
+                tmp = byte;
+            }
+            else
+            {
+                for (uint8_t bit_repetition = 0u; bit_repetition < font_size; bit_repetition++)
+                {
+                    tmp |= (uint32_t)bit << ((bit_number * font_size) + bit_repetition );
+                }
+            }
+        }
+
+        // Send to display.
+        for (uint8_t row = 0; row < font_size; row++)
+        {
+            set_possition(((index * font_size) + (current_x * font_size * 6u)), 
+                          (row + (current_y * font_size)));
+            send_data_start();
+
+            for (uint8_t column = 0; column < font_size; column++)
+            {
+                uint8_t tmp_byte = (uint8_t)((tmp & ((uint32_t)0xFFu << (row * 8u))) >> (row * 8u));
+
+                send_data_byte(tmp_byte);
+            }
+
+            send_data_end();
+        }
     }
-    
-    send_data_end();
 }
+
 
 void c_text_display::print(char * p_str)
 {
@@ -115,41 +131,54 @@ void c_text_display::print(char * p_str)
     {
         print_char(p_str[index]);
         index++;
+        current_x++;
+
+        if (120u < ((current_x + 1u) * font_size * 6u))
+        {
+            current_x = 0u;
+            current_y++; 
+        }
+
+        set_cursor(current_x, current_y);
     }
 }
 
 
 void c_text_display::println(char * p_str)
 {
-    // display.println(p_str);
+    print(p_str);
+    current_x = 0u;
+    current_y++; 
+    set_cursor(current_x, current_y);
 }
 
 
 void c_text_display::set_font_size(uint8_t size)
 {
-    // font_size = ( 3u >= size) ? size : 3u;
-    // display.setTextSize(font_size);
+    font_size = ((0u == size) || (1u == size)) ? (size + 1u) : 4u;
 }
 
 
 void c_text_display::set_possition(uint8_t position_x, uint8_t position_y)
 {
-    // display.setCursor((position_x * 12u), (position_y * 16u));
-    // ssd1306_send_command_start();
-    // ssd1306_send_byte(0xb0 + y);
-    // ssd1306_send_byte(((x & 0xf0) >> 4) | 0x10); // | 0x10
-    // ssd1306_send_byte((x & 0x0f) | 0x01); // | 0x01
-    // ssd1306_send_command_stop();
+    send_command(SSD1306_CMD_COLUMNADDR);
+    send_command(position_x);
+    send_command(SSD1306_LCD_WIDTH - 1u);
+    send_command(SSD1306_CMD_PAGEADDR);
+    send_command(position_y);
+    send_command((SSD1306_LCD_HEIGHT / 8u) - 1);
+}
+
+void c_text_display::set_cursor(uint8_t position_x, uint8_t position_y)
+{    
+    current_x = position_x; 
+    current_y = position_y;
 }
 
 
-void c_text_display::set_cursor(uint8_t position_x, uint8_t position_y)
+void c_text_display::show_cursor(uint8_t position_x, uint8_t position_y)
 {
-    // for (uint8_t index = 0; index < 3; index++)
-    // {
-    //     display.drawLine((position_x * 12), ((position_y * 16) + (16 - index)), 
-    //                        ((position_x * 12) + 10), ((position_y * 16) + (16 - index)), WHITE);
-    // }
+
 }
 
 

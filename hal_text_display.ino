@@ -13,28 +13,44 @@ void setup()
 {
     g_i2c.init();
     g_display.init(c_text_display::SSD1306_VCC_SWITCHCAP);
+    g_display.clear();
+    g_display.dim(true);
+
+    g_display.set_font_size(2);
+    g_display.set_cursor(3, 0);
+    g_display.print("012345678901234567890123456789");
+
+    delay(2000);
+
+
+    g_display.clear();
+    g_display.set_font_size(1);
+    g_display.set_cursor(5, 1);
+    g_display.print("012345678901234567890123456789");
+    delay(2000);
+
+
+    g_display.clear();
+    g_display.set_font_size(0);
+    g_display.set_cursor(5, 4);
+    g_display.println("012345678901234567890123456789");
+    g_display.println("012345678901234567890123456789");
 }
 
 
 void loop()
 {
-    g_display.show();
-
-    delay(500);
-
-    g_display.dim(true);
-
-    delay(500);
-
-    g_display.dim(false);
-
-    delay(500);
-
-    g_display.clear();
-
-    for (uint8_t index = 0; index < 92; index++)
-    {
-        g_display.print_char(' ' + index);
-        delay(200);
-    }
+    // for (uint8_t index = 0; index < 92; index++)
+    // {
+        
+    //     g_display.set_font_size(0);
+    //     g_display.print_char('B');
+    //     delay(2000);
+    //     g_display.set_font_size(1);
+    //     g_display.print_char('B');
+    //     delay(2000);
+    //     g_display.set_font_size(2);
+    //     g_display.print_char('B');
+    //     delay(2000);
+    // // }
 }

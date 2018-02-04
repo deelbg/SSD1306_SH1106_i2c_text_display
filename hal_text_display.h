@@ -22,8 +22,8 @@ class c_text_display
         void print(char * p_str);
         void println(char * p_str);
         void set_font_size(uint8_t size);
-        void set_possition(uint8_t position_x, uint8_t position_y);
         void set_cursor(uint8_t position_x, uint8_t position_y);
+        void show_cursor(uint8_t position_x, uint8_t position_y);
                 
     private:
 
@@ -64,7 +64,9 @@ class c_text_display
         static const uint8_t SSD1306_CMD_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL  = 0x2A;
 
         uint8_t address;
-        uint8_t font_size;
+        uint8_t font_size;        
+        uint8_t current_x;        
+        uint8_t current_y;
         vcc_source_t vcc_source;
         c_i2c & r_i2c;
 
@@ -73,6 +75,7 @@ class c_text_display
         void send_data_start(void);
         void send_data_byte(uint8_t byte);
         void send_data_end(void);
+        void set_possition(uint8_t position_x, uint8_t position_y);
 };
 
 #endif //TEXT_DISPLAY_H

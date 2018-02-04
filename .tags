@@ -1,0 +1,73 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	Development	//
+I2C_H	hal_i2c.h	2;"	d
+SSD1306_CMD_ACTIVATE_SCROLL	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_ACTIVATE_SCROLL            = 0x2F;$/;"	m	class:c_text_display
+SSD1306_CMD_CHARGEPUMP	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_CHARGEPUMP             = 0x8Du;$/;"	m	class:c_text_display
+SSD1306_CMD_COLUMNADDR	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_COLUMNADDR             = 0x21u;$/;"	m	class:c_text_display
+SSD1306_CMD_COMSCANDEC	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_COMSCANDEC             = 0xC8u;$/;"	m	class:c_text_display
+SSD1306_CMD_COMSCANINC	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_COMSCANINC             = 0xC0u;$/;"	m	class:c_text_display
+SSD1306_CMD_DEACTIVATE_SCROLL	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_DEACTIVATE_SCROLL          = 0x2E;$/;"	m	class:c_text_display
+SSD1306_CMD_DISPLAYALLON	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_DISPLAYALLON           = 0xA5u;$/;"	m	class:c_text_display
+SSD1306_CMD_DISPLAYALLON_RESUME	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_DISPLAYALLON_RESUME    = 0xA4u;$/;"	m	class:c_text_display
+SSD1306_CMD_DISPLAYOFF	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_DISPLAYOFF             = 0xAEu;$/;"	m	class:c_text_display
+SSD1306_CMD_DISPLAYON	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_DISPLAYON              = 0xAFu;$/;"	m	class:c_text_display
+SSD1306_CMD_INVERTDISPLAY	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_INVERTDISPLAY          = 0xA7u;$/;"	m	class:c_text_display
+SSD1306_CMD_LEFT_HORIZONTAL_SCROLL	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_LEFT_HORIZONTAL_SCROLL     = 0x27;$/;"	m	class:c_text_display
+SSD1306_CMD_MEMORYMODE	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_MEMORYMODE             = 0x20u;$/;"	m	class:c_text_display
+SSD1306_CMD_NORMALDISPLAY	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_NORMALDISPLAY          = 0xA6u;$/;"	m	class:c_text_display
+SSD1306_CMD_PAGEADDR	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_PAGEADDR               = 0x22u;$/;"	m	class:c_text_display
+SSD1306_CMD_RIGHT_HORIZONTAL_SCROLL	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_RIGHT_HORIZONTAL_SCROLL    = 0x26;$/;"	m	class:c_text_display
+SSD1306_CMD_SEGREMAP	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_SEGREMAP               = 0xA0u;$/;"	m	class:c_text_display
+SSD1306_CMD_SETCOMPINS	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_SETCOMPINS             = 0xDAu;$/;"	m	class:c_text_display
+SSD1306_CMD_SETCONTRAST	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_SETCONTRAST            = 0x81u;$/;"	m	class:c_text_display
+SSD1306_CMD_SETDISPLAYCLOCKDIV	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_SETDISPLAYCLOCKDIV     = 0xD5u;$/;"	m	class:c_text_display
+SSD1306_CMD_SETDISPLAYOFFSET	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_SETDISPLAYOFFSET       = 0xD3u;$/;"	m	class:c_text_display
+SSD1306_CMD_SETHIGHCOLUMN	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_SETHIGHCOLUMN          = 0x10u;$/;"	m	class:c_text_display
+SSD1306_CMD_SETLOWCOLUMN	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_SETLOWCOLUMN           = 0x00u;$/;"	m	class:c_text_display
+SSD1306_CMD_SETMULTIPLEX	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_SETMULTIPLEX           = 0xA8u;$/;"	m	class:c_text_display
+SSD1306_CMD_SETPRECHARGE	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_SETPRECHARGE           = 0xD9u;$/;"	m	class:c_text_display
+SSD1306_CMD_SETSTARTLINE	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_SETSTARTLINE           = 0x40u;$/;"	m	class:c_text_display
+SSD1306_CMD_SETVCOMDETECT	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_SETVCOMDETECT          = 0xDBu;$/;"	m	class:c_text_display
+SSD1306_CMD_SET_VERTICAL_SCROLL_AREA	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_SET_VERTICAL_SCROLL_AREA   = 0xA3;$/;"	m	class:c_text_display
+SSD1306_CMD_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL  = 0x2A;$/;"	m	class:c_text_display
+SSD1306_CMD_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL	hal_text_display.h	/^        static const uint8_t SSD1306_CMD_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL = 0x29;$/;"	m	class:c_text_display
+SSD1306_LCD_BUFFER_SIZE	hal_text_display.h	/^        static const uint16_t SSD1306_LCD_BUFFER_SIZE = (uint16_t)SSD1306_LCD_WIDTH * $/;"	m	class:c_text_display
+SSD1306_LCD_HEIGHT	hal_text_display.h	/^        static const uint8_t  SSD1306_LCD_HEIGHT      = 64u;$/;"	m	class:c_text_display
+SSD1306_LCD_WIDTH	hal_text_display.h	/^        static const uint8_t  SSD1306_LCD_WIDTH       = 128u;$/;"	m	class:c_text_display
+SSD1306_VCC_EXTERNAL	hal_text_display.h	/^            SSD1306_VCC_EXTERNAL,$/;"	e	enum:c_text_display::vcc_source_t
+SSD1306_VCC_SWITCHCAP	hal_text_display.h	/^            SSD1306_VCC_SWITCHCAP$/;"	e	enum:c_text_display::vcc_source_t
+TEXT_DISPLAY_H	hal_text_display.h	2;"	d
+address	hal_text_display.h	/^        uint8_t address;$/;"	m	class:c_text_display
+c_i2c	hal_i2c.cpp	/^c_i2c::c_i2c()$/;"	f	class:c_i2c
+c_i2c	hal_i2c.h	/^class c_i2c$/;"	c
+c_text_display	hal_text_display.cpp	/^c_text_display::c_text_display(c_i2c & ref_i2c, uint8_t i2c_address) :$/;"	f	class:c_text_display
+c_text_display	hal_text_display.h	/^class c_text_display$/;"	c
+clear	hal_text_display.cpp	/^void c_text_display::clear(void)$/;"	f	class:c_text_display
+current_x	hal_text_display.h	/^        uint8_t current_x;        $/;"	m	class:c_text_display
+current_y	hal_text_display.h	/^        uint8_t current_y;$/;"	m	class:c_text_display
+dim	hal_text_display.cpp	/^void c_text_display::dim(bool dim)$/;"	f	class:c_text_display
+font_h6_v8	font_h6_v8.h	/^static const PROGMEM uint8_t font_h6_v8[92][6] = {$/;"	v
+font_size	hal_text_display.h	/^        uint8_t font_size;        $/;"	m	class:c_text_display
+init	hal_i2c.cpp	/^void c_i2c::init(void)$/;"	f	class:c_i2c
+init	hal_text_display.cpp	/^void c_text_display::init(vcc_source_t vcc)$/;"	f	class:c_text_display
+print	hal_text_display.cpp	/^void c_text_display::print(char * p_str)$/;"	f	class:c_text_display
+print_char	hal_text_display.cpp	/^void c_text_display::print_char(char ch)$/;"	f	class:c_text_display
+println	hal_text_display.cpp	/^void c_text_display::println(char * p_str)$/;"	f	class:c_text_display
+r_i2c	hal_text_display.h	/^        c_i2c & r_i2c;$/;"	m	class:c_text_display
+send_command	hal_text_display.cpp	/^void c_text_display::send_command(uint8_t command)$/;"	f	class:c_text_display
+send_data_byte	hal_text_display.cpp	/^void c_text_display::send_data_byte(uint8_t data_byte)$/;"	f	class:c_text_display
+send_data_end	hal_text_display.cpp	/^void c_text_display::send_data_end(void)$/;"	f	class:c_text_display
+send_data_start	hal_text_display.cpp	/^void c_text_display::send_data_start(void)$/;"	f	class:c_text_display
+set_cursor	hal_text_display.cpp	/^void c_text_display::set_cursor(uint8_t position_x, uint8_t position_y)$/;"	f	class:c_text_display
+set_font_size	hal_text_display.cpp	/^void c_text_display::set_font_size(uint8_t size)$/;"	f	class:c_text_display
+set_possition	hal_text_display.cpp	/^void c_text_display::set_possition(uint8_t position_x, uint8_t position_y)$/;"	f	class:c_text_display
+show_cursor	hal_text_display.cpp	/^void c_text_display::show_cursor(uint8_t position_x, uint8_t position_y)$/;"	f	class:c_text_display
+transfer_begin	hal_i2c.cpp	/^void c_i2c::transfer_begin(uint8_t slave_address)$/;"	f	class:c_i2c
+transfer_byte	hal_i2c.cpp	/^void c_i2c::transfer_byte(uint8_t byte)$/;"	f	class:c_i2c
+transfer_end	hal_i2c.cpp	/^void c_i2c::transfer_end(void)$/;"	f	class:c_i2c
+vcc_source	hal_text_display.h	/^        vcc_source_t vcc_source;$/;"	m	class:c_text_display
+vcc_source_t	hal_text_display.h	/^        enum vcc_source_t$/;"	g	class:c_text_display
