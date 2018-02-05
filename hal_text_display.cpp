@@ -7,7 +7,8 @@
 c_text_display::c_text_display(c_i2c & ref_i2c, uint8_t i2c_address) :
                                r_i2c(ref_i2c), address(i2c_address),
                                current_x(0u), current_y(0u),
-                               vcc_source(SSD1306_VCC_EXTERNAL)
+                               cursor_x(0u), cursor_y(0u), cursor_on(false),
+                               vcc_source(VCC_EXTERNAL)
 {
     
 }
@@ -17,33 +18,38 @@ void c_text_display::init(vcc_source_t vcc)
 {
     vcc_source = vcc;
 
+    r_i2c.transfer_begin(address);
+    r_i2c.transfer_byte(COMMAND);
+
     // Init sequence
-    send_command(SSD1306_CMD_DISPLAYOFF);           // 0xAE
-    send_command(SSD1306_CMD_SETDISPLAYCLOCKDIV);   // 0xD5
-    send_command(0x80);                             // the suggested ratio 0x80
-    send_command(SSD1306_CMD_SETMULTIPLEX);         // 0xA8
-    send_command(SSD1306_LCD_HEIGHT - 1);
-    send_command(SSD1306_CMD_SETDISPLAYOFFSET);     // 0xD3
-    send_command(0x0);                              // no offset
-    send_command(SSD1306_CMD_SETSTARTLINE | 0x0);   // line #0
-    send_command(SSD1306_CMD_CHARGEPUMP);           // 0x8D
-    send_command((SSD1306_VCC_EXTERNAL == vcc_source) ? (0x10) : (0x14));     
-    send_command(SSD1306_CMD_MEMORYMODE);           // 0x20
-    send_command(0x00);                             // 0x0 act like ks0108
-    send_command(SSD1306_CMD_SEGREMAP | 0x1);
-    send_command(SSD1306_CMD_COMSCANDEC);
-    send_command(SSD1306_CMD_SETCOMPINS);           // 0xDA
-    send_command(0x12);
-    send_command(SSD1306_CMD_SETCONTRAST);          // 0x81
-    send_command((SSD1306_VCC_EXTERNAL == vcc_source) ? (0x9F) : (0xCF));     
-    send_command(SSD1306_CMD_SETPRECHARGE);         // 0xd9
-    send_command((SSD1306_VCC_EXTERNAL == vcc_source) ? (0x22) : (0xF1));     
-    send_command(SSD1306_CMD_SETVCOMDETECT);        // 0xDB
-    send_command(0x40);
-    send_command(SSD1306_CMD_DISPLAYALLON_RESUME);  // 0xA4
-    send_command(SSD1306_CMD_NORMALDISPLAY);        // 0xA6
-    send_command(SSD1306_CMD_DEACTIVATE_SCROLL);
-    send_command(SSD1306_CMD_DISPLAYON);            //--turn on oled panel
+    r_i2c.transfer_byte(CMD_DISPLAYOFF);           // 0xAE
+    r_i2c.transfer_byte(CMD_SETDISPLAYCLOCKDIV);   // 0xD5
+    r_i2c.transfer_byte(0x80);                     // the suggested ratio 0x80
+    r_i2c.transfer_byte(CMD_SETMULTIPLEX);         // 0xA8
+    r_i2c.transfer_byte(LCD_HEIGHT - 1);
+    r_i2c.transfer_byte(CMD_SETDISPLAYOFFSET);     // 0xD3
+    r_i2c.transfer_byte(0x0);                      // no offset
+    r_i2c.transfer_byte(CMD_SETSTARTLINE | 0x0);   // line #0
+    r_i2c.transfer_byte(CMD_CHARGEPUMP);           // 0x8D
+    r_i2c.transfer_byte((VCC_EXTERNAL == vcc_source) ? (0x10) : (0x14));     
+    r_i2c.transfer_byte(CMD_MEMORYMODE);           // 0x20
+    r_i2c.transfer_byte(0x00);                     // 0x0 act like ks0108
+    r_i2c.transfer_byte(CMD_SEGREMAP | 0x1);
+    r_i2c.transfer_byte(CMD_COMSCANDEC);
+    r_i2c.transfer_byte(CMD_SETCOMPINS);           // 0xDA
+    r_i2c.transfer_byte(0x12);
+    r_i2c.transfer_byte(CMD_SETCONTRAST);          // 0x81
+    r_i2c.transfer_byte((VCC_EXTERNAL == vcc_source) ? (0x9F) : (0xCF));     
+    r_i2c.transfer_byte(CMD_SETPRECHARGE);         // 0xd9
+    r_i2c.transfer_byte((VCC_EXTERNAL == vcc_source) ? (0x22) : (0xF1));     
+    r_i2c.transfer_byte(CMD_SETVCOMDETECT);        // 0xDB
+    r_i2c.transfer_byte(0x40);
+    r_i2c.transfer_byte(CMD_DISPLAYALLON_RESUME);  // 0xA4
+    r_i2c.transfer_byte(CMD_NORMALDISPLAY);        // 0xA6
+    r_i2c.transfer_byte(CMD_DEACTIVATE_SCROLL);
+    r_i2c.transfer_byte(CMD_DISPLAYON);            //--turn on oled panel
+
+    r_i2c.transfer_end();
 
     clear();
 }
@@ -53,16 +59,17 @@ void c_text_display::clear(void)
 {
     set_possition(0u, 0u);
     
-    for (uint8_t index = 0u; index < (SSD1306_LCD_BUFFER_SIZE / 16u); index++)
+    for (uint8_t index = 0u; index < (LCD_BUFFER_SIZE / 16u); index++)
     {
-        send_data_start();
+        r_i2c.transfer_begin(address);
+        r_i2c.transfer_byte(DATA);
 
         for (uint8_t index_2 = 0u; index_2 < 16u; index_2++)
         {
-            send_data_byte(0x00u);
+            r_i2c.transfer_byte(0x00u);
         }
 
-        send_data_end();
+        r_i2c.transfer_end();
     }
         
     set_possition(0u, 0u);
@@ -72,8 +79,11 @@ void c_text_display::clear(void)
 
 void c_text_display::dim(bool dim)
 {
-    send_command(SSD1306_CMD_SETCONTRAST);
-    send_command(dim ? 0u : ((SSD1306_VCC_EXTERNAL == vcc_source) ? (0x9F) : (0xCF)));
+    r_i2c.transfer_begin(address);
+    r_i2c.transfer_byte(COMMAND);
+    r_i2c.transfer_byte(CMD_SETCONTRAST);
+    r_i2c.transfer_byte(dim ? 0u : ((VCC_EXTERNAL == vcc_source) ? (0x9F) : (0xCF)));
+    r_i2c.transfer_end();
 }
 
 
@@ -88,12 +98,17 @@ void c_text_display::print_char(char ch)
     {
         tmp = (uint32_t)0u;
         byte = pgm_read_byte_near(&font_h6_v8[ch - (' ')][index]);
+
+        if (cursor_on && (current_x == cursor_x) && (current_y == cursor_y))
+        {
+            byte |= 0x80u;
+        }
                 
-        // Multiply dots for bigger fonts.
+        // Multiply pixel for larger font sizes.
         for (uint8_t bit_number = 0; bit_number < 8u; bit_number++)
         {
             bit = (byte & (0x01u << bit_number)) >> bit_number;
-            
+
             for (uint8_t bit_repetition = 0u; bit_repetition < dot_size; bit_repetition++)
             {
                 tmp |= (uint32_t)bit << ((bit_number * dot_size) + bit_repetition );
@@ -103,18 +118,19 @@ void c_text_display::print_char(char ch)
         // Send to display.
         for (uint8_t row = 0; row < dot_size; row++)
         {
+            set_possition(((index * dot_size) + (current_x * dot_size * 6u)), (row + (current_y * dot_size)));
+            
+            r_i2c.transfer_begin(address);
+            r_i2c.transfer_byte(DATA);
+                
             tmp_byte = (uint8_t)((tmp & ((uint32_t)0xFFu << (row * 8u))) >> (row * 8u));
-
-            set_possition(((index * dot_size) + (current_x * dot_size * 6u)), 
-                          (row + (current_y * dot_size)));
-            send_data_start();
-
+        
             for (uint8_t column = 0; column < dot_size; column++)
             {
-                send_data_byte(tmp_byte);
+                r_i2c.transfer_byte(tmp_byte);        
             }
 
-            send_data_end();
+            r_i2c.transfer_end();
         }
     }
 }
@@ -126,7 +142,7 @@ void c_text_display::print(char * p_str)
 
     while ('\0' != p_str[index])
     {
-        if ((SSD1306_LCD_WIDTH / (dot_size * 6u)) <= current_x)
+        if ((LCD_WIDTH / (dot_size * 6u)) <= current_x)
         {
             current_x = 0u;
             current_y++; 
@@ -158,24 +174,34 @@ void c_text_display::set_font_size(uint8_t size)
 
 void c_text_display::set_possition(uint8_t position_x, uint8_t position_y)
 {
-    send_command(SSD1306_CMD_COLUMNADDR);
-    send_command(position_x);
-    send_command(SSD1306_LCD_WIDTH - 1u);
-    send_command(SSD1306_CMD_PAGEADDR);
-    send_command(position_y);
-    send_command((SSD1306_LCD_HEIGHT / 8u) - 1);
+    r_i2c.transfer_begin(address);
+    r_i2c.transfer_byte(COMMAND);
+    r_i2c.transfer_byte(CMD_COLUMNADDR);
+    r_i2c.transfer_byte(position_x);
+    r_i2c.transfer_byte(LCD_WIDTH - 1u);
+    r_i2c.transfer_byte(CMD_PAGEADDR);
+    r_i2c.transfer_byte(position_y);
+    r_i2c.transfer_byte((LCD_HEIGHT / 8u) - 1);
+    r_i2c.transfer_end();
 }
 
 void c_text_display::set_cursor(uint8_t position_x, uint8_t position_y)
 {    
-    current_x = position_x; 
+    current_x = position_x;
     current_y = position_y;
 }
 
 
 void c_text_display::show_cursor(uint8_t position_x, uint8_t position_y)
 {
+    cursor_on = true;
+    cursor_x = position_x;
+    cursor_y = position_y;
+}
 
+void c_text_display::hide_cursor(void)
+{
+    cursor_on = false;
 }
 
 
@@ -184,24 +210,5 @@ void c_text_display::send_command(uint8_t command)
     r_i2c.transfer_begin(address);
     r_i2c.transfer_byte(0x00u);  // send 0x00 for command, 
     r_i2c.transfer_byte(command);
-    r_i2c.transfer_end();
-}
-
-
-void c_text_display::send_data_start(void)
-{
-    r_i2c.transfer_begin(address);
-    r_i2c.transfer_byte(0x40u);  // send 0x40 for data, 
-}
-
-
-void c_text_display::send_data_byte(uint8_t data_byte)
-{
-    r_i2c.transfer_byte(data_byte);
-}
-
-
-void c_text_display::send_data_end(void)
-{
     r_i2c.transfer_end();
 }

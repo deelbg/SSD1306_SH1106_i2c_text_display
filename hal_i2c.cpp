@@ -10,6 +10,7 @@ c_i2c::c_i2c()
 void c_i2c::init(void)
 {
     Wire.begin();
+    Wire.setClock(400000u);
 }
 
 
