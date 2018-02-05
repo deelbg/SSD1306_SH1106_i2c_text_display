@@ -72,9 +72,9 @@ class c_text_display
 
 
         void send_command(uint8_t command);
-        void send_data_start(void);
-        void send_data_byte(uint8_t byte);
-        void send_data_end(void);
+        inline void send_data_start(void);
+        inline void send_data_byte(uint8_t byte);
+        inline void send_data_end(void);
         void set_possition(uint8_t position_x, uint8_t position_y);
 };
 

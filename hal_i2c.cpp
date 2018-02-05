@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "hal_i2c.h"
 
 c_i2c::c_i2c()

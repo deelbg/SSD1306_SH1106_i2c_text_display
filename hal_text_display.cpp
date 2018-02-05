@@ -79,44 +79,38 @@ void c_text_display::dim(bool dim)
 
 void c_text_display::print_char(char ch)
 {
-    uint8_t  byte = 0u;
-    uint8_t  bit  = 0u;
-    uint32_t tmp  = 0u;
+    uint8_t  byte       = 0u;
+    uint8_t  bit        = 0u;
+    uint32_t tmp        = 0u;
+    uint8_t  tmp_byte   = 0u;
 
     for (uint8_t index = 0u; index < 6u; index++)
     {
         tmp = (uint32_t)0u;
         byte = pgm_read_byte_near(&font_h6_v8[ch - (' ')][index]);
-
+                
         // Multiply dots for bigger fonts.
         for (uint8_t bit_number = 0; bit_number < 8u; bit_number++)
         {
             bit = (byte & (0x01u << bit_number)) >> bit_number;
-
-            if (0u == dot_size)
+            
+            for (uint8_t bit_repetition = 0u; bit_repetition < dot_size; bit_repetition++)
             {
-                tmp = byte;
-            }
-            else
-            {
-                for (uint8_t bit_repetition = 0u; bit_repetition < dot_size; bit_repetition++)
-                {
-                    tmp |= (uint32_t)bit << ((bit_number * dot_size) + bit_repetition );
-                }
+                tmp |= (uint32_t)bit << ((bit_number * dot_size) + bit_repetition );
             }
         }
 
         // Send to display.
         for (uint8_t row = 0; row < dot_size; row++)
         {
+            tmp_byte = (uint8_t)((tmp & ((uint32_t)0xFFu << (row * 8u))) >> (row * 8u));
+
             set_possition(((index * dot_size) + (current_x * dot_size * 6u)), 
                           (row + (current_y * dot_size)));
             send_data_start();
 
             for (uint8_t column = 0; column < dot_size; column++)
             {
-                uint8_t tmp_byte = (uint8_t)((tmp & ((uint32_t)0xFFu << (row * 8u))) >> (row * 8u));
-
                 send_data_byte(tmp_byte);
             }
 
