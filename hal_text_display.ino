@@ -16,25 +16,12 @@ void setup()
     g_display.clear();
     g_display.dim(true);
 
-    g_display.set_font_size(2);
-    g_display.set_cursor(3, 0);
-    g_display.print("012345678901234567890123456789");
-
-    delay(2000);
-
-
-    g_display.clear();
     g_display.set_font_size(1);
-    g_display.set_cursor(5, 1);
-    g_display.print("012345678901234567890123456789");
-    delay(2000);
-
-
-    g_display.clear();
-    g_display.set_font_size(0);
-    g_display.set_cursor(5, 4);
-    g_display.println("012345678901234567890123456789");
-    g_display.println("012345678901234567890123456789");
+    g_display.println("0123456789");
+    g_display.print("01234567890123");    
+    g_display.set_font_size(0);    
+    g_display.set_cursor(8u, 5u);
+    g_display.println("01234567890123456789");
 }
 
 

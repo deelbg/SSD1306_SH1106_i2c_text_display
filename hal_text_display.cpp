@@ -64,6 +64,9 @@ void c_text_display::clear(void)
 
         send_data_end();
     }
+        
+    set_possition(0u, 0u);
+    set_cursor(0u, 0u);
 }
 
 
@@ -90,27 +93,27 @@ void c_text_display::print_char(char ch)
         {
             bit = (byte & (0x01u << bit_number)) >> bit_number;
 
-            if (0u == font_size)
+            if (0u == dot_size)
             {
                 tmp = byte;
             }
             else
             {
-                for (uint8_t bit_repetition = 0u; bit_repetition < font_size; bit_repetition++)
+                for (uint8_t bit_repetition = 0u; bit_repetition < dot_size; bit_repetition++)
                 {
-                    tmp |= (uint32_t)bit << ((bit_number * font_size) + bit_repetition );
+                    tmp |= (uint32_t)bit << ((bit_number * dot_size) + bit_repetition );
                 }
             }
         }
 
         // Send to display.
-        for (uint8_t row = 0; row < font_size; row++)
+        for (uint8_t row = 0; row < dot_size; row++)
         {
-            set_possition(((index * font_size) + (current_x * font_size * 6u)), 
-                          (row + (current_y * font_size)));
+            set_possition(((index * dot_size) + (current_x * dot_size * 6u)), 
+                          (row + (current_y * dot_size)));
             send_data_start();
 
-            for (uint8_t column = 0; column < font_size; column++)
+            for (uint8_t column = 0; column < dot_size; column++)
             {
                 uint8_t tmp_byte = (uint8_t)((tmp & ((uint32_t)0xFFu << (row * 8u))) >> (row * 8u));
 
@@ -129,15 +132,15 @@ void c_text_display::print(char * p_str)
 
     while ('\0' != p_str[index])
     {
-        print_char(p_str[index]);
-        index++;
-        current_x++;
-
-        if (120u < ((current_x + 1u) * font_size * 6u))
+        if ((SSD1306_LCD_WIDTH / (dot_size * 6u)) <= current_x)
         {
             current_x = 0u;
             current_y++; 
         }
+
+        print_char(p_str[index]);
+        index++;
+        current_x++;
 
         set_cursor(current_x, current_y);
     }
@@ -155,7 +158,7 @@ void c_text_display::println(char * p_str)
 
 void c_text_display::set_font_size(uint8_t size)
 {
-    font_size = ((0u == size) || (1u == size)) ? (size + 1u) : 4u;
+    dot_size = ((0u == size) || (1u == size)) ? (size + 1u) : 4u;
 }
 
 

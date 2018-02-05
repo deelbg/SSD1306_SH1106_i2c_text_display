@@ -64,7 +64,7 @@ class c_text_display
         static const uint8_t SSD1306_CMD_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL  = 0x2A;
 
         uint8_t address;
-        uint8_t font_size;        
+        uint8_t dot_size;        
         uint8_t current_x;        
         uint8_t current_y;
         vcc_source_t vcc_source;
