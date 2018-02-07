@@ -18,7 +18,8 @@ class c_text_display
         void clear(void);
         void dim(bool dim);
         void show(void);
-        void print_char(char ch);
+        void print_char(char ch);        
+        void print_number(uint16_t number, uint8_t width);
         void print(char * p_str);
         void println(char * p_str);
         void set_font_size(uint8_t size);

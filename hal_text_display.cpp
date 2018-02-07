@@ -135,6 +135,45 @@ void c_text_display::print_char(char ch)
     }
 }
 
+       
+void c_text_display::print_number(uint16_t number, uint8_t width)
+{   
+    const uint8_t MAX_LEN = 5u;
+    const uint16_t dividers[MAX_LEN] = {10000u, 1000u, 100u, 10u, 1u};    
+    char    buff[MAX_LEN+1];
+    uint8_t digit = 0;
+    uint8_t first_digit_position = 255u;
+    uint8_t print_position = 0u;
+    uint8_t print_width = MAX_LEN <= width ? MAX_LEN: width;
+
+
+    for (uint8_t position = 0u; position < MAX_LEN; position++)
+    {   
+        digit = (number / dividers[position]) % 10u;
+        
+        if ((0u != digit) && (255u == first_digit_position))
+        {
+            first_digit_position = position;
+        }
+
+        buff[position] = (255u != first_digit_position) ? '0' + digit : ' ' ;
+    }
+
+    buff[4u] = (char)('0' + number % 10u);
+    buff[5u] = '\0';
+
+    if ((MAX_LEN - first_digit_position) > print_width)
+    {
+        print_position = first_digit_position;
+    }
+    else
+    {
+        print_position = (MAX_LEN - print_width);
+    }
+
+    print(&buff[print_position]);
+}
+
 
 void c_text_display::print(char * p_str)
 {
