@@ -6,7 +6,7 @@
 
 c_text_display::c_text_display(c_i2c & ref_i2c, uint8_t i2c_address) :
                                r_i2c(ref_i2c), address(i2c_address),
-                               current_x(0u), current_y(0u),
+                               dot_size(1u), current_x(0u), current_y(0u),
                                cursor_x(0u), cursor_y(0u), cursor_on(false),
                                vcc_source(VCC_EXTERNAL)
 {

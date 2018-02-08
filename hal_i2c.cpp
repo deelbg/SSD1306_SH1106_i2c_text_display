@@ -1,5 +1,7 @@
 #include <stdint.h>
 #include "hal_i2c.h"
+#include <Wire.h>
+
 
 c_i2c::c_i2c()
 {

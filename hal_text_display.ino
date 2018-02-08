@@ -11,7 +11,7 @@ c_text_display g_display = c_text_display(g_i2c, OLED_ADDRESS);
 
 void setup()
 {
-    Serial.begin(115200);
+    // Serial.begin(115200);
     g_i2c.init();
     g_display.init(c_text_display::VCC_SWITCHCAP);
     g_display.clear();
