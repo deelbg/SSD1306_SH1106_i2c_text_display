@@ -19,35 +19,35 @@ void c_text_display::init(vcc_source_t vcc)
     vcc_source = vcc;
 
     r_i2c.transfer_begin(address);
-    r_i2c.transfer_byte(COMMAND);
+    r_i2c.send_byte(COMMAND);
 
     // Init sequence
-    r_i2c.transfer_byte(CMD_DISPLAYOFF);           // 0xAE
-    r_i2c.transfer_byte(CMD_SETDISPLAYCLOCKDIV);   // 0xD5
-    r_i2c.transfer_byte(0x80);                     // the suggested ratio 0x80
-    r_i2c.transfer_byte(CMD_SETMULTIPLEX);         // 0xA8
-    r_i2c.transfer_byte(LCD_HEIGHT - 1);
-    r_i2c.transfer_byte(CMD_SETDISPLAYOFFSET);     // 0xD3
-    r_i2c.transfer_byte(0x0);                      // no offset
-    r_i2c.transfer_byte(CMD_SETSTARTLINE | 0x0);   // line #0
-    r_i2c.transfer_byte(CMD_CHARGEPUMP);           // 0x8D
-    r_i2c.transfer_byte((VCC_EXTERNAL == vcc_source) ? (0x10) : (0x14));     
-    r_i2c.transfer_byte(CMD_MEMORYMODE);           // 0x20
-    r_i2c.transfer_byte(0x00);                     // 0x0 act like ks0108
-    r_i2c.transfer_byte(CMD_SEGREMAP | 0x1);
-    r_i2c.transfer_byte(CMD_COMSCANDEC);
-    r_i2c.transfer_byte(CMD_SETCOMPINS);           // 0xDA
-    r_i2c.transfer_byte(0x12);
-    r_i2c.transfer_byte(CMD_SETCONTRAST);          // 0x81
-    r_i2c.transfer_byte((VCC_EXTERNAL == vcc_source) ? (0x9F) : (0xCF));     
-    r_i2c.transfer_byte(CMD_SETPRECHARGE);         // 0xd9
-    r_i2c.transfer_byte((VCC_EXTERNAL == vcc_source) ? (0x22) : (0xF1));     
-    r_i2c.transfer_byte(CMD_SETVCOMDETECT);        // 0xDB
-    r_i2c.transfer_byte(0x40);
-    r_i2c.transfer_byte(CMD_DISPLAYALLON_RESUME);  // 0xA4
-    r_i2c.transfer_byte(CMD_NORMALDISPLAY);        // 0xA6
-    r_i2c.transfer_byte(CMD_DEACTIVATE_SCROLL);
-    r_i2c.transfer_byte(CMD_DISPLAYON);            //--turn on oled panel
+    r_i2c.send_byte(CMD_DISPLAYOFF);           // 0xAE
+    r_i2c.send_byte(CMD_SETDISPLAYCLOCKDIV);   // 0xD5
+    r_i2c.send_byte(0x80);                     // the suggested ratio 0x80
+    r_i2c.send_byte(CMD_SETMULTIPLEX);         // 0xA8
+    r_i2c.send_byte(LCD_HEIGHT - 1);
+    r_i2c.send_byte(CMD_SETDISPLAYOFFSET);     // 0xD3
+    r_i2c.send_byte(0x0);                      // no offset
+    r_i2c.send_byte(CMD_SETSTARTLINE | 0x0);   // line #0
+    r_i2c.send_byte(CMD_CHARGEPUMP);           // 0x8D
+    r_i2c.send_byte((VCC_EXTERNAL == vcc_source) ? (0x10) : (0x14));     
+    r_i2c.send_byte(CMD_MEMORYMODE);           // 0x20
+    r_i2c.send_byte(0x00);                     // 0x0 act like ks0108
+    r_i2c.send_byte(CMD_SEGREMAP | 0x1);
+    r_i2c.send_byte(CMD_COMSCANDEC);
+    r_i2c.send_byte(CMD_SETCOMPINS);           // 0xDA
+    r_i2c.send_byte(0x12);
+    r_i2c.send_byte(CMD_SETCONTRAST);          // 0x81
+    r_i2c.send_byte((VCC_EXTERNAL == vcc_source) ? (0x9F) : (0xCF));     
+    r_i2c.send_byte(CMD_SETPRECHARGE);         // 0xd9
+    r_i2c.send_byte((VCC_EXTERNAL == vcc_source) ? (0x22) : (0xF1));     
+    r_i2c.send_byte(CMD_SETVCOMDETECT);        // 0xDB
+    r_i2c.send_byte(0x40);
+    r_i2c.send_byte(CMD_DISPLAYALLON_RESUME);  // 0xA4
+    r_i2c.send_byte(CMD_NORMALDISPLAY);        // 0xA6
+    r_i2c.send_byte(CMD_DEACTIVATE_SCROLL);
+    r_i2c.send_byte(CMD_DISPLAYON);            //--turn on oled panel
 
     r_i2c.transfer_end();
 
@@ -62,11 +62,11 @@ void c_text_display::clear(void)
     for (uint8_t index = 0u; index < (LCD_BUFFER_SIZE / 16u); index++)
     {
         r_i2c.transfer_begin(address);
-        r_i2c.transfer_byte(DATA);
+        r_i2c.send_byte(DATA);
 
         for (uint8_t index_2 = 0u; index_2 < 16u; index_2++)
         {
-            r_i2c.transfer_byte(0x00u);
+            r_i2c.send_byte(0x00u);
         }
 
         r_i2c.transfer_end();
@@ -80,9 +80,9 @@ void c_text_display::clear(void)
 void c_text_display::dim(bool dim)
 {
     r_i2c.transfer_begin(address);
-    r_i2c.transfer_byte(COMMAND);
-    r_i2c.transfer_byte(CMD_SETCONTRAST);
-    r_i2c.transfer_byte(dim ? 0u : ((VCC_EXTERNAL == vcc_source) ? (0x9F) : (0xCF)));
+    r_i2c.send_byte(COMMAND);
+    r_i2c.send_byte(CMD_SETCONTRAST);
+    r_i2c.send_byte(dim ? 0u : ((VCC_EXTERNAL == vcc_source) ? (0x9F) : (0xCF)));
     r_i2c.transfer_end();
 }
 
@@ -121,13 +121,13 @@ void c_text_display::print_char(char ch)
             set_possition(((index * dot_size) + (current_x * dot_size * 6u)), (row + (current_y * dot_size)));
             
             r_i2c.transfer_begin(address);
-            r_i2c.transfer_byte(DATA);
+            r_i2c.send_byte(DATA);
                 
             tmp_byte = (uint8_t)((tmp & ((uint32_t)0xFFu << (row * 8u))) >> (row * 8u));
         
             for (uint8_t column = 0; column < dot_size; column++)
             {
-                r_i2c.transfer_byte(tmp_byte);        
+                r_i2c.send_byte(tmp_byte);        
             }
 
             r_i2c.transfer_end();
@@ -214,13 +214,13 @@ void c_text_display::set_font_size(uint8_t size)
 void c_text_display::set_possition(uint8_t position_x, uint8_t position_y)
 {
     r_i2c.transfer_begin(address);
-    r_i2c.transfer_byte(COMMAND);
-    r_i2c.transfer_byte(CMD_COLUMNADDR);
-    r_i2c.transfer_byte(position_x);
-    r_i2c.transfer_byte(LCD_WIDTH - 1u);
-    r_i2c.transfer_byte(CMD_PAGEADDR);
-    r_i2c.transfer_byte(position_y);
-    r_i2c.transfer_byte((LCD_HEIGHT / 8u) - 1);
+    r_i2c.send_byte(COMMAND);
+    r_i2c.send_byte(CMD_COLUMNADDR);
+    r_i2c.send_byte(position_x);
+    r_i2c.send_byte(LCD_WIDTH - 1u);
+    r_i2c.send_byte(CMD_PAGEADDR);
+    r_i2c.send_byte(position_y);
+    r_i2c.send_byte((LCD_HEIGHT / 8u) - 1);
     r_i2c.transfer_end();
 }
 
@@ -247,7 +247,7 @@ void c_text_display::hide_cursor(void)
 void c_text_display::send_command(uint8_t command)
 {
     r_i2c.transfer_begin(address);
-    r_i2c.transfer_byte(0x00u);  // send 0x00 for command, 
-    r_i2c.transfer_byte(command);
+    r_i2c.send_byte(0x00u);  // send 0x00 for command, 
+    r_i2c.send_byte(command);
     r_i2c.transfer_end();
 }
