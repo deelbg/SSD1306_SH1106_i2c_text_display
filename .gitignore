@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# tag files
+.tags
+.tags_sorted_by_file
