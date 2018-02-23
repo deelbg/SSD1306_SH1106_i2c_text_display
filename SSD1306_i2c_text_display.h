@@ -2,6 +2,7 @@
 #define TEXT_DISPLAY_H
 
 #include "hal_i2c_twi.h"
+#include "font_h5_v8.h"
 
 #define TEXT_DISPLAY_VERSION_MAJOR 1
 #define TEXT_DISPLAY_VERSION_MINOR 1
@@ -80,6 +81,7 @@ class c_text_display
         bool    cursor_on;
         vcc_source_t vcc_source;
         c_i2c & r_i2c;
+        c_font_h5_v8 font_h5_v8 = c_font_h5_v8();
 
 
         void send_command(uint8_t command);        

@@ -1,7 +1,6 @@
 #include <stdint.h>
-#include <arduino.h>
-#include "font_h6_v8.h"
-#include "hal_text_display.h"
+#include "font_h5_v8.h"
+#include "SSD1306_i2c_text_display.h"
 
 
 c_text_display::c_text_display(c_i2c & ref_i2c, uint8_t i2c_address) :
@@ -97,7 +96,8 @@ void c_text_display::print_char(char ch)
     for (uint8_t index = 0u; index < 6u; index++)
     {
         tmp = (uint32_t)0u;
-        byte = pgm_read_byte_near(&font_h6_v8[ch - (' ')][index]);
+        
+        byte = (0u == index) ? 0x00u : font_h5_v8.get_char_column(ch, (index - 1));
 
         if (cursor_on && (current_x == cursor_x) && (current_y == cursor_y))
         {
