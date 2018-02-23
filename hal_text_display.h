@@ -1,7 +1,10 @@
 #ifndef TEXT_DISPLAY_H
 #define TEXT_DISPLAY_H
 
-#include "hal_i2c.h"
+#include "hal_i2c_twi.h"
+
+#define TEXT_DISPLAY_VERSION_MAJOR 1
+#define TEXT_DISPLAY_VERSION_MINOR 1
 
 class c_text_display
 {
