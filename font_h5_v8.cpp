@@ -41,7 +41,7 @@
 
 // English part.
 static const char FONT_EN_H5_V8_FIRST = 0x20;
-static const char FONT_EN_H5_V8_LAST  = 0x7F;
+static const char FONT_EN_H5_V8_LAST  = 0x7A;
 static const PROGMEM uint8_t FONT_EN_H5_V8[92][5] = 
                                        {{0x00, 0x00, 0x00, 0x00, 0x00}, // sp
                                         {0x00, 0x00, 0x2f, 0x00, 0x00}, // !
@@ -218,17 +218,16 @@ uint8_t c_font_h5_v8::get_char_column(char ch, uint8_t column)
 
     if (column < 5u)
     {
-        //English symbol.
-        if (FONT_EN_H5_V8_LAST >= ch)
-        {
-            tmp_ch = pgm_read_byte_near(&FONT_EN_H5_V8[ch - FONT_EN_H5_V8_FIRST][column]);
-        }
-
-        //Cyrillic symbol.
-        if (FONT_CYR_H5_V8_FIRST <= ch)
-        {        
-            tmp_ch = pgm_read_byte_near(&FONT_CYR_H5_V8[ch - FONT_CYR_H5_V8_FIRST][column]);
-        }
+          //English symbol.
+          if ((ch >= FONT_EN_H5_V8_FIRST) && (ch <= FONT_EN_H5_V8_LAST))
+          {
+               tmp_ch = pgm_read_byte_near(&FONT_EN_H5_V8[ch - FONT_EN_H5_V8_FIRST][column]);
+          }
+          //Cyrillic symbol.
+          if ((ch >= FONT_CYR_H5_V8_FIRST) && (ch <= FONT_CYR_H5_V8_LAST))
+          {        
+               tmp_ch = pgm_read_byte_near(&FONT_CYR_H5_V8[ch - FONT_CYR_H5_V8_FIRST][column]);
+          }
     }
 
     return tmp_ch;
