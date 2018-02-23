@@ -52,4 +52,6 @@ void loop()
     g_display.set_font_size(1);
     g_display.print(str_buff);
     delay(5000);
+
+    // TODO example for positioning, font size, cursor. 
 }
