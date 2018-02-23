@@ -1,2 +1,2 @@
-# hel_text_display
-hel_text_display
+# SSD1306_i2c_text_display
+SSD1306_i2c_text_display
