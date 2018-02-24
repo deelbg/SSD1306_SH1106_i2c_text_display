@@ -5,7 +5,7 @@
 #include "font_h5_v8.h"
 
 #define TEXT_DISPLAY_VERSION_MAJOR 1
-#define TEXT_DISPLAY_VERSION_MINOR 1
+#define TEXT_DISPLAY_VERSION_MINOR 0
 
 class c_text_display
 {
@@ -21,13 +21,12 @@ class c_text_display
         void init(vcc_source_t vcc);
         void clear(void);
         void dim(bool dim);
-        void show(void);
         void print_char(char ch);        
         void print_number(uint16_t number, uint8_t width);
         void print(char * p_str);
         void println(char * p_str);
         void set_font_size(uint8_t size);
-        void set_cursor(uint8_t position_x, uint8_t position_y);
+        void set_possition(uint8_t position_x, uint8_t position_y);
         void show_cursor(uint8_t position_x, uint8_t position_y);
         void hide_cursor(void);
                 
@@ -85,7 +84,7 @@ class c_text_display
 
 
         void send_command(uint8_t command);        
-        void set_possition(uint8_t position_x, uint8_t position_y);
+        void set_possition_raw(uint8_t position_x, uint8_t position_y);
 };
 
 #endif //TEXT_DISPLAY_H

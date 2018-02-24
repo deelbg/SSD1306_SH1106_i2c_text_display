@@ -56,7 +56,7 @@ void c_text_display::init(vcc_source_t vcc)
 
 void c_text_display::clear(void)
 {
-    set_possition(0u, 0u);
+    set_possition_raw(0u, 0u);
     
     for (uint8_t index = 0u; index < (LCD_BUFFER_SIZE / 16u); index++)
     {
@@ -71,8 +71,8 @@ void c_text_display::clear(void)
         r_i2c.transfer_end();
     }
         
+    set_possition_raw(0u, 0u);
     set_possition(0u, 0u);
-    set_cursor(0u, 0u);
 }
 
 
@@ -118,7 +118,7 @@ void c_text_display::print_char(char ch)
         // Send to display.
         for (uint8_t row = 0; row < dot_size; row++)
         {
-            set_possition(((index * dot_size) + (current_x * dot_size * 6u)), (row + (current_y * dot_size)));
+            set_possition_raw(((index * dot_size) + (current_x * dot_size * 6u)), (row + (current_y * dot_size)));
             
             r_i2c.transfer_begin(address);
             r_i2c.send_byte(DATA);
@@ -191,7 +191,7 @@ void c_text_display::print(char * p_str)
         index++;
         current_x++;
 
-        set_cursor(current_x, current_y);
+        set_possition(current_x, current_y);
     }
 }
 
@@ -201,7 +201,7 @@ void c_text_display::println(char * p_str)
     print(p_str);
     current_x = 0u;
     current_y++; 
-    set_cursor(current_x, current_y);
+    set_possition(current_x, current_y);
 }
 
 
@@ -211,7 +211,7 @@ void c_text_display::set_font_size(uint8_t size)
 }
 
 
-void c_text_display::set_possition(uint8_t position_x, uint8_t position_y)
+void c_text_display::set_possition_raw(uint8_t position_x, uint8_t position_y)
 {
     r_i2c.transfer_begin(address);
     r_i2c.send_byte(COMMAND);
@@ -224,7 +224,7 @@ void c_text_display::set_possition(uint8_t position_x, uint8_t position_y)
     r_i2c.transfer_end();
 }
 
-void c_text_display::set_cursor(uint8_t position_x, uint8_t position_y)
+void c_text_display::set_possition(uint8_t position_x, uint8_t position_y)
 {    
     current_x = position_x;
     current_y = position_y;
