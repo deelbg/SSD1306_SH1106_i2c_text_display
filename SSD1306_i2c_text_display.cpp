@@ -3,7 +3,7 @@
 #include "SSD1306_i2c_text_display.h"
 
 
-c_text_display::c_text_display(c_i2c & ref_i2c, uint8_t i2c_address) :
+c_SSD1306_i2c_text_display::c_SSD1306_i2c_text_display(c_i2c & ref_i2c, uint8_t i2c_address) :
                                r_i2c(ref_i2c), address(i2c_address),
                                dot_size(1u), current_x(0u), current_y(0u),
                                cursor_x(0u), cursor_y(0u), cursor_on(false),
@@ -13,7 +13,7 @@ c_text_display::c_text_display(c_i2c & ref_i2c, uint8_t i2c_address) :
 }
 
 
-void c_text_display::init(vcc_source_t vcc)
+void c_SSD1306_i2c_text_display::init(vcc_source_t vcc)
 {
     vcc_source = vcc;
 
@@ -54,7 +54,7 @@ void c_text_display::init(vcc_source_t vcc)
 }
 
 
-void c_text_display::clear(void)
+void c_SSD1306_i2c_text_display::clear(void)
 {
     set_possition_raw(0u, 0u);
     
@@ -76,7 +76,7 @@ void c_text_display::clear(void)
 }
 
 
-void c_text_display::dim(bool dim)
+void c_SSD1306_i2c_text_display::dim(bool dim)
 {
     r_i2c.transfer_begin(address);
     r_i2c.send_byte(COMMAND);
@@ -86,7 +86,7 @@ void c_text_display::dim(bool dim)
 }
 
 
-void c_text_display::print_char(char ch)
+void c_SSD1306_i2c_text_display::print_char(char ch)
 {
     uint8_t  byte       = 0u;
     uint8_t  bit        = 0u;
@@ -136,7 +136,7 @@ void c_text_display::print_char(char ch)
 }
 
        
-void c_text_display::print_number(uint16_t number, uint8_t width)
+void c_SSD1306_i2c_text_display::print_number(uint16_t number, uint8_t width)
 {   
     const uint8_t MAX_LEN = 5u;
     const uint16_t dividers[MAX_LEN] = {10000u, 1000u, 100u, 10u, 1u};    
@@ -175,7 +175,7 @@ void c_text_display::print_number(uint16_t number, uint8_t width)
 }
 
 
-void c_text_display::print(char * p_str)
+void c_SSD1306_i2c_text_display::print(char * p_str)
 {
     uint8_t index = 0u;
 
@@ -196,7 +196,7 @@ void c_text_display::print(char * p_str)
 }
 
 
-void c_text_display::println(char * p_str)
+void c_SSD1306_i2c_text_display::println(char * p_str)
 {
     print(p_str);
     current_x = 0u;
@@ -205,13 +205,13 @@ void c_text_display::println(char * p_str)
 }
 
 
-void c_text_display::set_font_size(uint8_t size)
+void c_SSD1306_i2c_text_display::set_font_size(uint8_t size)
 {
     dot_size = ((0u == size) || (1u == size)) ? (size + 1u) : 4u;
 }
 
 
-void c_text_display::set_possition_raw(uint8_t position_x, uint8_t position_y)
+void c_SSD1306_i2c_text_display::set_possition_raw(uint8_t position_x, uint8_t position_y)
 {
     r_i2c.transfer_begin(address);
     r_i2c.send_byte(COMMAND);
@@ -224,27 +224,27 @@ void c_text_display::set_possition_raw(uint8_t position_x, uint8_t position_y)
     r_i2c.transfer_end();
 }
 
-void c_text_display::set_possition(uint8_t position_x, uint8_t position_y)
+void c_SSD1306_i2c_text_display::set_possition(uint8_t position_x, uint8_t position_y)
 {    
     current_x = position_x;
     current_y = position_y;
 }
 
 
-void c_text_display::show_cursor(uint8_t position_x, uint8_t position_y)
+void c_SSD1306_i2c_text_display::show_cursor(uint8_t position_x, uint8_t position_y)
 {
     cursor_on = true;
     cursor_x = position_x;
     cursor_y = position_y;
 }
 
-void c_text_display::hide_cursor(void)
+void c_SSD1306_i2c_text_display::hide_cursor(void)
 {
     cursor_on = false;
 }
 
 
-void c_text_display::send_command(uint8_t command)
+void c_SSD1306_i2c_text_display::send_command(uint8_t command)
 {
     r_i2c.transfer_begin(address);
     r_i2c.send_byte(0x00u);  // send 0x00 for command, 

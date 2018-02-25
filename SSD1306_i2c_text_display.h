@@ -7,7 +7,7 @@
 #define TEXT_DISPLAY_VERSION_MAJOR 1
 #define TEXT_DISPLAY_VERSION_MINOR 0
 
-class c_text_display
+class c_SSD1306_i2c_text_display
 {
     public:
         enum vcc_source_t
@@ -16,7 +16,7 @@ class c_text_display
             VCC_SWITCHCAP
         };
 
-        c_text_display(c_i2c & ref_i2c, uint8_t i2c_address);
+        c_SSD1306_i2c_text_display(c_i2c & ref_i2c, uint8_t i2c_address);
 
         void init(vcc_source_t vcc);
         void clear(void);
