@@ -2,7 +2,7 @@
 #define font_h5_v8_H
 
 #define font_h5_v8_VERSION_MAJOR 1
-#define font_h5_v8_VERSION_MINOR 1
+#define font_h5_v8_VERSION_MINOR 0
 
 
 class c_font_h5_v8
