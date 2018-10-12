@@ -3,6 +3,7 @@
 
 #define I2C_TWI_VERSION_MAJOR 1
 #define I2C_TWI_VERSION_MINOR 0
+#define I2C_TWI_VERSION_PATCH 0
 
 
 class c_i2c
