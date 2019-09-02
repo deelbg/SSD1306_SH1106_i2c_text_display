@@ -3,7 +3,7 @@
 #include "SSD1306_i2c_text_display.h"
 
 
-c_SSD1306_i2c_text_display::c_SSD1306_i2c_text_display(c_i2c_usi & ref_i2c, uint8_t i2c_address) :
+c_SSD1306_i2c_text_display::c_SSD1306_i2c_text_display(c_i2c & ref_i2c, uint8_t i2c_address) :
                                r_i2c(ref_i2c), address(i2c_address),
                                dot_size(1u), current_x(0u), current_y(0u),
                                cursor_x(0u), cursor_y(0u), cursor_on(false),

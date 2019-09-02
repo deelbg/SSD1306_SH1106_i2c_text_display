@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "hal_i2c_twi.h"
+#include "hal_avr_i2c.h"
 #include "SSD1306_i2c_text_display.h"
 
 static const uint32_t CPU_FREQUENCY = 16000000u;
@@ -11,7 +11,7 @@ c_SSD1306_i2c_text_display g_display = c_SSD1306_i2c_text_display(g_i2c, OLED_AD
 
 void setup()
 {
-    g_i2c.init(CPU_FREQUENCY, I2C_FREQUENCY);
+    g_i2c.init();
     g_display.init(c_SSD1306_i2c_text_display::VCC_SWITCHCAP);
 }
 

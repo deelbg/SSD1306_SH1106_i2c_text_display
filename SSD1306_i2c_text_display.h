@@ -1,7 +1,7 @@
 #ifndef TEXT_DISPLAY_H
 #define TEXT_DISPLAY_H
 
-#include "hal_avr_i2c_usi.h"
+#include "hal_avr_i2c.h"
 #include "font_h5_v8.h"
 
 #define TEXT_DISPLAY_VERSION_MAJOR 1
@@ -16,7 +16,7 @@ class c_SSD1306_i2c_text_display
             VCC_SWITCHCAP
         };
 
-        c_SSD1306_i2c_text_display(c_i2c_usi & ref_i2c, uint8_t i2c_address);
+        c_SSD1306_i2c_text_display(c_i2c & ref_i2c, uint8_t i2c_address);
 
         void init(vcc_source_t vcc);
         void clear(void);
@@ -72,7 +72,7 @@ class c_SSD1306_i2c_text_display
         static const uint8_t CMD_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL = 0x29;
         static const uint8_t CMD_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL  = 0x2A;
 
-        c_i2c_usi & r_i2c;
+        c_i2c & r_i2c;
         uint8_t address;
         uint8_t dot_size;        
         uint8_t current_x;
