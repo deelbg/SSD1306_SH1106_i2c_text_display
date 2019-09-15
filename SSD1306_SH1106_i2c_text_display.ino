@@ -1,18 +1,20 @@
 #include <stdint.h>
 #include "hal_avr_i2c.h"
-#include "SSD1306_i2c_text_display.h"
+#include "SSD1306_SH1106_i2c_text_display.h"
 
 static const uint32_t CPU_FREQUENCY = 16000000u;
 static const uint32_t I2C_FREQUENCY = 400000u;
 static const uint8_t  OLED_ADDRESS  = 0x3Cu;
 
 c_i2c g_i2c = c_i2c();
-c_SSD1306_i2c_text_display g_display = c_SSD1306_i2c_text_display(g_i2c, OLED_ADDRESS);
+c_SSD1306_SH1106_i2c g_display = c_SSD1306_SH1106_i2c(g_i2c, OLED_ADDRESS);
 
 void setup()
 {
     g_i2c.init();
-    g_display.init(c_SSD1306_i2c_text_display::VCC_SWITCHCAP);
+    g_display.init(c_SSD1306_SH1106_i2c::VCC_SWITCHCAP);
+    g_display.set_offset_x(2u);
+    g_display.set_contrast(0xFF, 0x00);
 }
 
 
