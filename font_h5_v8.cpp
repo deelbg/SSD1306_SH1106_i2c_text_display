@@ -1,3 +1,28 @@
+// ==============================================================================
+// MIT License
+
+// Copyright (c) 2019 Deyan Todorov
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// ==============================================================================
+
+
 #include <avr/pgmspace.h>
 #include "font_h5_v8.h"
 
@@ -30,13 +55,13 @@
 // |--------------------------------------------------------------------|
 // |    |x0 |x1 |x2 |x3 |x4 |x5 |x6 |x7 |x8 |x9 |xA |xB |xC |xD |xE |xF |
 // |----|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-// | Cx | –ê | –ë | –í | –ì | –î | –ï | –ñ | –ó | –ò | –ô | –ö | –õ | –ú | –ù | –û | –ü |
+// | Cx | ¿ | ¡ | ¬ | √ | ƒ | ≈ | ∆ | « | » | … |   | À | Ã | Õ | Œ | œ |
 // |----|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-// | Dx | –† | –° | –¢ | –£ | –§ | –• | –¶ | –ß | –® | –© | –™ | –´ | –¨ | –≠ | –Æ | –Ø |
+// | Dx | – | — | “ | ” | ‘ | ’ | ÷ | ◊ | ÿ | Ÿ | ⁄ | € | ‹ | › | ﬁ | ﬂ |
 // |----|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-// | Ex | –∞ | –± | –≤ | –≥ | –¥ | –µ | –∂ | –∑ | –∏ | –π | –∫ | –ª | –º | –Ω | –æ | –ø |
+// | Ex | ‡ | · | ‚ | „ | ‰ | Â | Ê | Á | Ë | È | Í | Î | Ï | Ì | Ó | Ô |
 // |----|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-// | Fx | —Ä | —Å | —Ç | —É | —Ñ | —Ö | —Ü | —á | —à | —â | —ä | —ã | —å | —ç | —é | —è |
+// | Fx |  | Ò | Ú | Û | Ù | ı | ˆ | ˜ | ¯ | ˘ | ˙ | ˚ | ¸ | ˝ | ˛ | ˇ |
 // |--------------------------------------------------------------------|
 
 // English part.
@@ -141,70 +166,70 @@ static const PROGMEM uint8_t FONT_EN_H5_V8[92][5] =
 static const char FONT_CYR_H5_V8_FIRST = 0xC0;
 static const char FONT_CYR_H5_V8_LAST  = 0xFF;
 static const PROGMEM uint8_t FONT_CYR_H5_V8[64][5] = 
-                                       {{0x7C, 0x12, 0x11, 0x12, 0x7C}, // –ê
-                                        {0x7F, 0x49, 0x49, 0x49, 0x33}, // –ë
-                                        {0x7F, 0x49, 0x49, 0x49, 0x36}, // –í
-                                        {0x7F, 0x01, 0x01, 0x01, 0x03}, // –ì
-                                        {0x70, 0x29, 0x27, 0x21, 0x7F}, // –î
-                                        {0x7F, 0x49, 0x49, 0x49, 0x41}, // –ï
-                                        {0x77, 0x08, 0x7F, 0x08, 0x77}, // –ñ
-                                        {0x41, 0x49, 0x49, 0x49, 0x36}, // –ó
-                                        {0x7F, 0x10, 0x08, 0x04, 0x7F}, // –ò
-                                        {0x7C, 0x21, 0x12, 0x09, 0x7C}, // –ô
-                                        {0x7F, 0x08, 0x14, 0x22, 0x41}, // –ö
-                                        {0x20, 0x41, 0x3F, 0x01, 0x7F}, // –õ
-                                        {0x7F, 0x02, 0x0C, 0x02, 0x7F}, // –ú
-                                        {0x7F, 0x08, 0x08, 0x08, 0x7F}, // –ù
-                                        {0x3E, 0x41, 0x41, 0x41, 0x3E}, // –û
-                                        {0x7F, 0x01, 0x01, 0x01, 0x7F}, // –ü
-                                        {0x7F, 0x09, 0x09, 0x09, 0x06}, // –†
-                                        {0x3E, 0x41, 0x41, 0x41, 0x22}, // –°
-                                        {0x01, 0x01, 0x7F, 0x01, 0x01}, // –¢
-                                        {0x47, 0x28, 0x10, 0x08, 0x07}, // –£
-                                        {0x1C, 0x22, 0x7F, 0x22, 0x1C}, // –§
-                                        {0x63, 0x14, 0x08, 0x14, 0x63}, // –•
-                                        {0x7F, 0x40, 0x40, 0x40, 0xFF}, // –¶
-                                        {0x07, 0x08, 0x08, 0x08, 0x7F}, // –ß
-                                        {0x7F, 0x40, 0x7F, 0x40, 0x7F}, // –®
-                                        {0x7F, 0x40, 0x7F, 0x40, 0xFF}, // –©
-                                        {0x01, 0x7F, 0x48, 0x48, 0x30}, // –™
-                                        {0x7F, 0x48, 0x30, 0x00, 0x7F}, // –´
-                                        {0x7F, 0x48, 0x48, 0x30, 0x00}, // –¨
-                                        {0x00, 0x41, 0x49, 0x49, 0x3E}, // –≠
-                                        {0x7F, 0x08, 0x3E, 0x41, 0x3E}, // –Æ
-                                        {0x46, 0x29, 0x19, 0x09, 0x7F}, // –Ø
-                                        {0x20, 0x54, 0x54, 0x54, 0x78}, // –∞
-                                        {0x3C, 0x4A, 0x4A, 0x49, 0x31}, // –±
-                                        {0x7C, 0x54, 0x54, 0x28, 0x00}, // –≤
-                                        {0x7C, 0x04, 0x04, 0x04, 0x0C}, // –≥
-                                        {0x70, 0x2A, 0x26, 0x22, 0x7E}, // –¥
-                                        {0x38, 0x54, 0x54, 0x54, 0x18}, // –µ
-                                        {0x6C, 0x10, 0x7C, 0x10, 0x6C}, // –∂
-                                        {0x44, 0x44, 0x54, 0x54, 0x28}, // –∑
-                                        {0x7C, 0x20, 0x10, 0x08, 0x7C}, // –∏
-                                        {0x78, 0x42, 0x24, 0x12, 0x78}, // –π
-                                        {0x7C, 0x10, 0x28, 0x44, 0x00}, // –∫
-                                        {0x20, 0x44, 0x3C, 0x04, 0x7C}, // –ª
-                                        {0x7C, 0x08, 0x10, 0x08, 0x7C}, // –º
-                                        {0x7C, 0x10, 0x10, 0x10, 0x7C}, // –Ω
-                                        {0x38, 0x44, 0x44, 0x44, 0x38}, // –æ
-                                        {0x7C, 0x04, 0x04, 0x04, 0x7C}, // –ø
-                                        {0xFC, 0x24, 0x24, 0x24, 0x18}, // —Ä
-                                        {0x38, 0x44, 0x44, 0x44, 0x00}, // —Å
-                                        {0x04, 0x04, 0x7C, 0x04, 0x04}, // —Ç
-                                        {0x1C, 0xA0, 0xA0, 0xA0, 0x7C}, // —É
-                                        {0x30, 0x48, 0xFE, 0x48, 0x30}, // —Ñ
-                                        {0x44, 0x28, 0x10, 0x28, 0x44}, // —Ö
-                                        {0x7C, 0x40, 0x40, 0x40, 0xFC}, // —Ü
-                                        {0x0C, 0x10, 0x10, 0x10, 0x7C}, // —á
-                                        {0x7C, 0x40, 0x7C, 0x40, 0x7C}, // —à
-                                        {0x7C, 0x40, 0x7C, 0x40, 0xFC}, // —â
-                                        {0x04, 0x7C, 0x50, 0x50, 0x20}, // —ä
-                                        {0x7C, 0x50, 0x20, 0x00, 0x7C}, // —ã
-                                        {0x7C, 0x50, 0x50, 0x20, 0x00}, // —å
-                                        {0x00, 0x44, 0x54, 0x54, 0x38}, // —ç
-                                        {0x7C, 0x10, 0x38, 0x44, 0x38}, // —é
-                                        {0x00, 0x48, 0x34, 0x14, 0x7C}};// —è
+                                       {{0x7C, 0x12, 0x11, 0x12, 0x7C}, // ¿
+                                        {0x7F, 0x49, 0x49, 0x49, 0x33}, // ¡
+                                        {0x7F, 0x49, 0x49, 0x49, 0x36}, // ¬
+                                        {0x7F, 0x01, 0x01, 0x01, 0x03}, // √
+                                        {0x70, 0x29, 0x27, 0x21, 0x7F}, // ƒ
+                                        {0x7F, 0x49, 0x49, 0x49, 0x41}, // ≈
+                                        {0x77, 0x08, 0x7F, 0x08, 0x77}, // ∆
+                                        {0x41, 0x49, 0x49, 0x49, 0x36}, // «
+                                        {0x7F, 0x10, 0x08, 0x04, 0x7F}, // »
+                                        {0x7C, 0x21, 0x12, 0x09, 0x7C}, // …
+                                        {0x7F, 0x08, 0x14, 0x22, 0x41}, //  
+                                        {0x20, 0x41, 0x3F, 0x01, 0x7F}, // À
+                                        {0x7F, 0x02, 0x0C, 0x02, 0x7F}, // Ã
+                                        {0x7F, 0x08, 0x08, 0x08, 0x7F}, // Õ
+                                        {0x3E, 0x41, 0x41, 0x41, 0x3E}, // Œ
+                                        {0x7F, 0x01, 0x01, 0x01, 0x7F}, // œ
+                                        {0x7F, 0x09, 0x09, 0x09, 0x06}, // –
+                                        {0x3E, 0x41, 0x41, 0x41, 0x22}, // —
+                                        {0x01, 0x01, 0x7F, 0x01, 0x01}, // “
+                                        {0x47, 0x28, 0x10, 0x08, 0x07}, // ”
+                                        {0x1C, 0x22, 0x7F, 0x22, 0x1C}, // ‘
+                                        {0x63, 0x14, 0x08, 0x14, 0x63}, // ’
+                                        {0x7F, 0x40, 0x40, 0x40, 0xFF}, // ÷
+                                        {0x07, 0x08, 0x08, 0x08, 0x7F}, // ◊
+                                        {0x7F, 0x40, 0x7F, 0x40, 0x7F}, // ÿ
+                                        {0x7F, 0x40, 0x7F, 0x40, 0xFF}, // Ÿ
+                                        {0x01, 0x7F, 0x48, 0x48, 0x30}, // ⁄
+                                        {0x7F, 0x48, 0x30, 0x00, 0x7F}, // €
+                                        {0x7F, 0x48, 0x48, 0x30, 0x00}, // ‹
+                                        {0x00, 0x41, 0x49, 0x49, 0x3E}, // ›
+                                        {0x7F, 0x08, 0x3E, 0x41, 0x3E}, // ﬁ
+                                        {0x46, 0x29, 0x19, 0x09, 0x7F}, // ﬂ
+                                        {0x20, 0x54, 0x54, 0x54, 0x78}, // ‡
+                                        {0x3C, 0x4A, 0x4A, 0x49, 0x31}, // ·
+                                        {0x7C, 0x54, 0x54, 0x28, 0x00}, // ‚
+                                        {0x7C, 0x04, 0x04, 0x04, 0x0C}, // „
+                                        {0x70, 0x2A, 0x26, 0x22, 0x7E}, // ‰
+                                        {0x38, 0x54, 0x54, 0x54, 0x18}, // Â
+                                        {0x6C, 0x10, 0x7C, 0x10, 0x6C}, // Ê
+                                        {0x44, 0x44, 0x54, 0x54, 0x28}, // Á
+                                        {0x7C, 0x20, 0x10, 0x08, 0x7C}, // Ë
+                                        {0x78, 0x42, 0x24, 0x12, 0x78}, // È
+                                        {0x7C, 0x10, 0x28, 0x44, 0x00}, // Í
+                                        {0x20, 0x44, 0x3C, 0x04, 0x7C}, // Î
+                                        {0x7C, 0x08, 0x10, 0x08, 0x7C}, // Ï
+                                        {0x7C, 0x10, 0x10, 0x10, 0x7C}, // Ì
+                                        {0x38, 0x44, 0x44, 0x44, 0x38}, // Ó
+                                        {0x7C, 0x04, 0x04, 0x04, 0x7C}, // Ô
+                                        {0xFC, 0x24, 0x24, 0x24, 0x18}, // 
+                                        {0x38, 0x44, 0x44, 0x44, 0x00}, // Ò
+                                        {0x04, 0x04, 0x7C, 0x04, 0x04}, // Ú
+                                        {0x1C, 0xA0, 0xA0, 0xA0, 0x7C}, // Û
+                                        {0x30, 0x48, 0xFE, 0x48, 0x30}, // Ù
+                                        {0x44, 0x28, 0x10, 0x28, 0x44}, // ı
+                                        {0x7C, 0x40, 0x40, 0x40, 0xFC}, // ˆ
+                                        {0x0C, 0x10, 0x10, 0x10, 0x7C}, // ˜
+                                        {0x7C, 0x40, 0x7C, 0x40, 0x7C}, // ¯
+                                        {0x7C, 0x40, 0x7C, 0x40, 0xFC}, // ˘
+                                        {0x04, 0x7C, 0x50, 0x50, 0x20}, // ˙
+                                        {0x7C, 0x50, 0x20, 0x00, 0x7C}, // ˚
+                                        {0x7C, 0x50, 0x50, 0x20, 0x00}, // ¸
+                                        {0x00, 0x44, 0x54, 0x54, 0x38}, // ˝
+                                        {0x7C, 0x10, 0x38, 0x44, 0x38}, // ˛
+                                        {0x00, 0x48, 0x34, 0x14, 0x7C}};// ˇ
 
 
 c_font_h5_v8::c_font_h5_v8()
