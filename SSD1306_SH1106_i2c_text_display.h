@@ -47,7 +47,7 @@ class c_SSD1306_SH1106_i2c
 
         void init(vcc_source_t vcc);
         void set_offset_x(uint8_t offset);
-        void set_contrast(uint8_t contrast, uint8_t contrast_dimm);
+        void set_contrast(uint8_t contrast, uint8_t contrast_dim);
         void clear(void);
         void power_on(bool power);
         void dim(bool dim);

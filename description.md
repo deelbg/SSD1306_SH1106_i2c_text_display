@@ -20,6 +20,8 @@ Initialisation function. Sends the necessary commands to the display controller 
 
 
 #### *void set_offset_x(uint8_t offset);*  
+Sets an offset in pixels on the x axis. The default value is 0. This offset shifts the used area of the display controller memory with *`offset`* pixels the the right.  
+This function must be used when the first row of LEDs is not mapped to the first column in memory. This is the case with some 1.3 inch, 128x64 displays that use the SH1106 controller.
 
 
 #### *void set_contrast(uint8_t contrast, uint8_t contrast_dim);*  
@@ -35,30 +37,32 @@ Clears the entire display and positions the cursor at x=0 and y=0.
 #### *void power_on(bool power);*  
 Powers on/off the display.  
 *`power = true;`* - Powers on the display.  
-*`power = false;`* - Powers off the display and reduces it's power consumption.  
+*`power = false;`* - Powers off the display and reduces its power consumption.  
 
 
 #### *void dim(bool dim);*  
 Dims the display by changing it's contrast.  
-*`dim = true;`* - reduce the contrast, sets the display's contrast to the value give to the *`contrast_dim`* parameter of the *`set_contrast()`* function.  
-*`dim = false;`* - increase the contrast, sets the display's contrast to the value give to the *`contrast`* parameter of the *`set_contrast()`* function.  
+*`dim = true;`* - reduce the contrast, sets the display contrast to the value give to the *`contrast_dim`* parameter of the *`set_contrast()`* function.  
+*`dim = false;`* - increase the contrast, sets the display contrast to the value give to the *`contrast`* parameter of the *`set_contrast()`* function.  
 
 
 #### *void print_char(char ch);*  
-
+Prints a string character *`ch`* at the current position set by a call to the *`set_possition()`* function.
 
 #### *void print_number(uint16_t number, uint8_t width);*  
-
+Prints an integer number *`number`* at the current position set by a call to the *`set_possition()`* function.  
+*`width`* - determines how many character the printed number will take. Fixed width. The number os padded with spaces on the left if needed. The idea of this function is to avoid the usage of *`sprintf()`* calls for printing out a simple integer number, since it has rather large program memory footprint. 
 
 #### *void print(char * p_str);*  
-
+Prints a string, pointed by *`p_str`*, starting at the current position set by a call to the *`set_possition()`* function.
 
 #### *void println(char * p_str);*  
+Prints a string, pointed by *`p_str`*, starting at the current position set by a call to the *`set_possition()`* function. After that sends the position to the beginning of the next line.
 
 
 #### *void set_font_size(uint8_t size);*  
 Sets the font size to be used.  
-*`size`* - A value from 0 to 2, if greater value is passed the bigers font will be used, i.e. 2.  
+*`size`* - A value from 0 to 2, if greater value is passed the biggest font will be used, i.e. 2.  
 *`size = 0;`* - The smallest font is 8 by 5 pixels. On a 128x64 pixel display there will be 8 lines of 25 characters.  
 *`size = 1;`* - Font is 16 by 10 pixels. On a 128x64 pixel display there will be 4 lines of 10 characters.  
 *`size = 2;`* - Font is 32 by 20 pixels. On a 128x64 pixel display there will be 2 lines of 5 characters.  
@@ -76,7 +80,5 @@ The display is not refreshed immediately, on a following *`print()`* over the cu
 #### *void hide_cursor(void);*  
 Hides the cursor form the display if it has been activated using the previous function.  
 The display is not refreshed immediately, on a following *`print()`* over the cursor's position, the printed character will be displayed without an underscored.  
-
-
 
 

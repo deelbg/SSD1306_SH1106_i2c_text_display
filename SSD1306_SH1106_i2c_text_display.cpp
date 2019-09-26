@@ -79,11 +79,11 @@ void c_SSD1306_SH1106_i2c::init(vcc_source_t vcc)
 }
 
 
-void c_SSD1306_SH1106_i2c::set_contrast(uint8_t contrast, uint8_t contrast_dimm)
+void c_SSD1306_SH1106_i2c::set_contrast(uint8_t contrast, uint8_t contrast_dim)
 {
 
     contrast_normal = contrast;
-    contrast_dimmed = contrast_dimm;
+    contrast_dimmed = contrast_dim;
 
     r_i2c.start_write(address);
     r_i2c.write_byte(COMMAND);
